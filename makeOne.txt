@@ -1,0 +1,10 @@
+I try recursion. It seems to be work, but always repeat same way.
+How can I make it goes to every each path?
+That would be key of this.
+---------------10.28.------------------
+The minimum common multiple of 5, 3, and 2 is 30.
+Therefore, if the number is calculated as the rest, it is repeated by 30 cycles.
+The corresponding table is this
+Value is 0 when the rest is zero, others are 1.
+The multiplication of number and table value can be used as a condition.
+But I need to look up some exception.

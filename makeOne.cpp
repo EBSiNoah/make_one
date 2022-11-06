@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <cstdlib>
+#include <cmath>
 
 using namespace std;
 vector<int> Ones;
@@ -540,7 +541,7 @@ int makeOne04C01(int num)//think about exception
 	int Btree[10][1024]={0};
 	Btree[0][0]=num;
 	
-	cout<<"work?"<<endl;
+//	cout<<"work?"<<endl;
 	for(j=0;j<num;++j)
 	{
 		for(l=0;Btree[j][l]!=0;++l)
@@ -571,8 +572,16 @@ int makeOne04C01(int num)//think about exception
 		}
 		++count;
 	}
+	for(i=0;i<count;++i)
+	{
+		for(j=0;Btree[i][j]!=0;++j)
+		{
+			cout<<Btree[i][j]<<" | ";
+		}
+		cout<<endl;
+	}
 
-	cout<<"various 2A :"<<loopnum<<endl;
+	cout<<"various 2A loopcount : "<<loopnum<<", answer : "<<count<<endl;
 	return count;
 }
 
@@ -595,7 +604,7 @@ void maxInteger(void)
 		cout<<endl;
 	}
 }
-
+/*
 void maxIntegerA(void)
 {
 	#define AK	512
@@ -620,8 +629,8 @@ void maxIntegerA(void)
 		}
 	}
 	cout<<AK<<", "<<BK<<endl;
-}
-
+}*/
+/*
 #define MAXINTERGERB_FUNC
 
 # if defined(MAXINTERGERB_FUNC)
@@ -642,33 +651,107 @@ void maxIntegerB(int AK, int BK)
 			if(arr[i][j]=!(AK*BK-i*j))
 			{
 				cout<<"i : "<<i<<", j : "<<j<<endl;
-				return ;				
+				return ;
 			}
 		}
 	}
 	cout<<AK<<", "<<BK<<endl;
 }
 # endif
-
+*//*
 void maxIntegerB_test(void)
 {
 # if defined(MAXINTERGERB_FUNC)
-	maxIntergerB(512, 512);
+	maxIntegerB(512, 512);
 #endif
+}*/
+
+void maxIntegerC(void)
+{
+	int max=0;
+	int min=0;
+	int result=0;
+	int compare=1;
+	int count=0;
+
+	for(count=1;count<32;++count)
+	{
+		compare*=2;
+	}
+	compare--;
+	cout<<compare<<endl;
+
+	for(max=0;max<compare;++max,--min)
+	{
+		result+=(max+min);
+	}
+	cout<<"max : "<<max<<" min : "<<min<<endl;
+	cout<<result<<endl;
 }
 
+void maxIntegerC01A(void)
+{
+	int min=-1;
+
+	while(min<0)
+	{
+		--min;
+	}
+	min++;
+	cout<<min<<endl;
+}
+
+void maxIntegerC01B(void)
+{
+	int value=-1;
+	long long count=1;
+	
+	do
+	{
+		--value;
+		++count;
+	}
+	while(value!=0);
+	
+	cout<<value<<", "<<count<<endl;
+}
+
+void maxIntegerC01C(void)
+{
+	int size=0;
+	int compare=1;
+	int count=0;
+	vector<int> arr;
+
+	for(count=1;count<20;++count)
+	{
+		compare*=2;
+	}
+	while(size<compare)
+	{
+		arr.push_back(1);
+		++size;
+	}
+	cout<<*(arr.begin()+compare-1)<<endl;
+}
+
+void maxIntegerC_test(void)
+{
+	int i=0,j=0;
+	maxIntegerC01C();
+}
 
 int main(void)
 {
 	int answer=0;
 	vector<int>::iterator itr;
-	restore=26;
 //	answer=makeOne04(199);
 //	answer=makeOne04A(199);
-//	answer=makeOne04C01(30000);	
+	answer=makeOne04C01(30000);	
 //	makeTable02C();
-	maxIntegerA();
-	maxIntegerB_test();
+//	maxIntegerA();
+//	maxIntegerB_test();
+//	maxIntegerC_test();
 /*	for(itr=Ones.begin();itr!=Ones.end();++itr)
 	{
 		cout<<*itr<<endl;

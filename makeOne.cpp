@@ -578,10 +578,124 @@ int makeOne04C01(int num)//think about exception
 		{
 			cout<<Btree[i][j]<<" | ";
 		}
-		cout<<endl;
+		cout<<"idx : "<<i<<endl;
 	}
 
 	cout<<"various 2A loopcount : "<<loopnum<<", answer : "<<count<<endl;
+	return count;
+}
+
+int makeOne04C02(int num)//think about exception and limit of data type
+{
+	int table[30][4]={/*30*/{0,0,0,1},/*1*/{1,1,1,0},/*2*/{1,1,0,1},/*3*/{1,0,1,1},/*4*/{1,1,0,1},/*5*/{0,1,1,1},/*6*/{1,0,0,1},/*7*/{1,1,1,0},/*8*/{1,1,0,1},/*9*/{1,0,1,1},/*10*/{0,1,0,1},/*11*/{1,1,1,0},/*12*/{1,0,0,1},/*13*/{1,1,1,0},/*14*/{1,1,0,1},/*15*/{0,0,1,1},/*16*/{1,1,0,1},/*17*/{1,1,1,0},/*18*/{1,0,0,1},/*19*/{1,1,1,0},/*20*/{0,1,0,1},/*21*/{1,0,1,1},/*22*/{1,1,0,1},/*23*/{1,1,1,0},/*24*/{1,0,0,1},/*25*/{0,1,1,1},/*26*/{1,1,0,1},/*27*/{1,0,1,1},/*28*/{1,1,0,1},/*29*/{1,1,1,0}};
+	int idx[4]={0};
+	int count=0;
+	int i=0;
+	int j=0;
+	int l=0;
+	int loopnum=0;
+	bool isOne=0;
+	vector< vector<int> > B_tree;
+	vector<int> branch;
+	vector< vector<int> >::iterator row;
+	vector<int>::iterator col;
+	
+	branch.push_back(num);
+	B_tree.push_back(branch);
+	branch.clear();
+	
+	for(j=0;j<num;++j)
+	{
+		row=B_tree.begin();
+		for(col=(row+j)->begin(), l=0;col!=(row+j)->end();++col,++l)
+		{
+			idx[0]= (*col)/5;
+			idx[1]= (*col)/3;
+			idx[2]= (*col)/2;
+			idx[3]= (*col)-1;
+			for(i=0;table[(*col)%30][i]!=0;++i)
+			{
+				++loopnum;
+			}
+			branch.push_back(idx[i]);
+			branch.push_back(idx[3]);
+			if(idx[i]==1||idx[3]==1)
+			{
+				isOne=1;
+				break;
+			}
+		}
+		B_tree.push_back(branch);
+		branch.clear();
+		if(isOne)
+		{
+			break;
+		}
+		++count;
+	}
+
+	for(row=B_tree.begin(),i=0;row!=B_tree.end();++row,++i)
+	{
+		for(col=row->begin();col!=row->end();++col)
+		{
+			cout<<*col<<" | ";
+		}
+		cout<<"idx : "<<i<<endl;
+	}
+
+	cout<<"loopcount : "<<loopnum<<", answer : "<<count<<endl;
+	return count;
+}
+
+int makeOne04C03(int num)//think about exception, non condition and limit of data type
+{
+	int table[30][4]={/*30*/{0,0,0,1},/*1*/{1,1,1,0},/*2*/{1,1,0,1},/*3*/{1,0,1,1},/*4*/{1,1,0,1},/*5*/{0,1,1,1},/*6*/{1,0,0,1},/*7*/{1,1,1,0},/*8*/{1,1,0,1},/*9*/{1,0,1,1},/*10*/{0,1,0,1},/*11*/{1,1,1,0},/*12*/{1,0,0,1},/*13*/{1,1,1,0},/*14*/{1,1,0,1},/*15*/{0,0,1,1},/*16*/{1,1,0,1},/*17*/{1,1,1,0},/*18*/{1,0,0,1},/*19*/{1,1,1,0},/*20*/{0,1,0,1},/*21*/{1,0,1,1},/*22*/{1,1,0,1},/*23*/{1,1,1,0},/*24*/{1,0,0,1},/*25*/{0,1,1,1},/*26*/{1,1,0,1},/*27*/{1,0,1,1},/*28*/{1,1,0,1},/*29*/{1,1,1,0}};
+	int idx[4]={0};
+	int count=0;
+	int i=0;
+	int j=0;
+	int l=0;
+	int loopnum=0;
+	vector< vector<int> > B_tree;
+	vector<int> branch;
+	vector< vector<int> >::iterator row;
+	vector<int>::iterator col;
+	
+	branch.push_back(num);
+	B_tree.push_back(branch);
+	branch.clear();
+	
+	for(j=0;j<num&&idx[i]!=1;++j)
+	{
+		row=B_tree.begin();
+		for(col=(row+j)->begin(),l=0; (col!=(row+j)->end())&&idx[i]!=1; ++col,++l)
+		{
+			idx[0]= (*col)/5;
+			idx[1]= (*col)/3;
+			idx[2]= (*col)/2;
+			idx[3]= (*col)-1;
+			for(i=0;table[(*col)%30][i]!=0;++i)
+			{
+				++loopnum;
+			}
+			branch.push_back(idx[i]);
+			branch.push_back(idx[3]);
+		}
+		B_tree.push_back(branch);
+		branch.clear();
+		++count;
+	}
+
+	for(row=B_tree.begin(),i=0;row!=B_tree.end();++row,++i)
+	{
+		for(col=row->begin();col!=row->end();++col)
+		{
+			cout<<*col<<" | ";
+		}
+		cout<<"idx : "<<i<<endl;
+	}
+
+	cout<<"loopcount : "<<loopnum<<", answer : "<<count<<endl;
 	return count;
 }
 
@@ -747,7 +861,7 @@ int main(void)
 	vector<int>::iterator itr;
 //	answer=makeOne04(199);
 //	answer=makeOne04A(199);
-	answer=makeOne04C01(30000);	
+	answer=makeOne04C03(30000);
 //	makeTable02C();
 //	maxIntegerA();
 //	maxIntegerB_test();
